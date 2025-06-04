@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    container_name: industronic_backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    container_name: industronic_mysql
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_ROOT_PASSWORD: paver
+      MYSQL_DATABASE: indusdb_1
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql_data:
